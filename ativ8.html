@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Previsão do Tempo</title>
+</head>
+<body>
+  <h1>Previsão Semanal de Temperatura</h1>
+  <p>Insira a temperatura para cada dia da semana:</p>
+  <table>
+    <tr>
+      <th>Dia</th>
+      <th>Temperatura (°C)</th>
+    </tr>
+    <tr>
+      <td>Segunda-feira</td>
+      <td><input type="number" id="tempMonday"></td>
+    </tr>
+    <tr>
+      <td>Terça-feira</td>
+      <td><input type="number" id="tempTuesday"></td>
+    </tr>
+    <tr>
+      <td>Quarta-feira</td>
+      <td><input type="number" id="tempWednesday"></td>
+    </tr>
+    <tr>
+      <td>Quinta-feira</td>
+      <td><input type="number" id="tempThursday"></td>
+    </tr>
+    <tr>
+      <td>Sexta-feira</td>
+      <td><input type="number" id="tempFriday"></td>
+    </tr>
+    <tr>
+      <td>Sábado</td>
+      <td><input type="number" id="tempSaturday"></td>
+    </tr>
+    <tr>
+      <td>Domingo</td>
+      <td><input type="number" id="tempSunday"></td>
+    </tr>
+  </table>
+  <button id="showForecastButton">Exibir Previsão Semanal</button>
+  <h2>Previsão Semanal:</h2>
+  <ul id="forecastList"></ul>
+
+  <script>
+    const daysOfWeek = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
+    const tempInputs = [
+      document.getElementById('tempMonday'),
+      document.getElementById('tempTuesday'),
+      document.getElementById('tempWednesday'),
+      document.getElementById('tempThursday'),
+      document.getElementById('tempFriday'),
+      document.getElementById('tempSaturday'),
+      document.getElementById('tempSunday')
+    ];
+    const showForecastButton = document.getElementById('showForecastButton');
+    const forecastList = document.getElementById('forecastList');
+    
+    showForecastButton.addEventListener('click', () => {
+      const temperatures = [];
+      for (const input of tempInputs) {
+        const temperature = parseFloat(input.value);
+        temperatures.push(temperature);
+      }
+      displayForecast(temperatures);
+    });
+    
+    function displayForecast(temperatures) {
+      forecastList.innerHTML = '';
+      for (let i = 0; i < daysOfWeek.length; i++) {
+        const forecastItem = document.createElement('li');
+        forecastItem.textContent = `${daysOfWeek[i]}: ${temperatures[i]}°C`;
+        forecastList.appendChild(forecastItem);
+      }
+    }
+  </script>
+</body>
+</html>

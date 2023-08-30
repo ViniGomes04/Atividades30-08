@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribuição de Cartas</title>
+</head>
+<body>
+    
+<style>
+  .card {
+    width: 80px;
+    height: 120px;
+    background-color: white;
+    border: 1px #000000;
+    margin: 5px;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    line-height: 120px;
+  }
+</style>
+<title>Jogo de Distribuição de Cartas</title>
+</head>
+<body>
+  <h1>Jogo de Distribuição de Cartas</h1>
+  <button id="startButton">Iniciar Jogo</button>
+  <h2>Cartas de Pedro</h2>
+  <div id="pedro-hand"></div>
+  <h2>Cartas de Gabriel</h2>
+  <div id="amigo1-hand"></div>
+  <h2>Cartas de Lucas</h2>
+  <div id="amigo2-hand"></div>
+
+  <script>
+    const suits = ['♠', '♦', '♥', '♣'];
+    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    const players = ['pedro', 'amigo1', 'amigo2'];
+    const playerHands = {
+      pedro: [],
+      amigo1: [],
+      amigo2: []
+    };
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function dealHands() {
+      const deck = [];
+
+      for (const suit of suits) {
+        for (const value of values) {
+          deck.push(`${value}${suit}`);
+        }
+      }
+
+      shuffle(deck);
+
+      for (const playerId of players) {
+        playerHands[playerId] = deck.splice(0, 5);
+      }
+    }
+
+    function displayHands() {
+      for (const playerId of players) {
+        const hand = playerHands[playerId];
+        const handDiv = document.getElementById(`${playerId}-hand`);
+        handDiv.innerHTML = '';
+
+        for (const card of hand) {
+          const cardDiv = document.createElement('div');
+          cardDiv.className = 'card';
+          cardDiv.textContent = card;
+          handDiv.appendChild(cardDiv);
+        }
+      }
+    }
+
+    document.getElementById('startButton').addEventListener('click', () => {
+      dealHands();
+      displayHands();
+    });
+  </script>
+  </body>
+</html>

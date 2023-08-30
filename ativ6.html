@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Gastos </title>
+</head>
+<body>
+  <h1>Controle de Gastos Mensais</h1>
+  <p>Insira seus gastos diários:</p>
+  <input type="number" id="expenseInput" placeholder="Insira o valor">
+  <button id="addExpenseButton">Adicionar Gasto</button>
+  <p>Gastos do mês:</p>
+  <ul id="expenseList"></ul>
+  <p>Total de gastos do mês: <span id="totalExpense">0</span></p>
+
+  <script>
+    const expenseInput = document.getElementById('expenseInput');
+    const addExpenseButton = document.getElementById('addExpenseButton');
+    const expenseList = document.getElementById('expenseList');
+    const totalExpense = document.getElementById('totalExpense');
+    const expenses = [];
+
+    addExpenseButton.addEventListener('click', () => {
+      const expenseValue = parseFloat(expenseInput.value);
+      if (!isNaN(expenseValue) && expenseValue > 0) {
+        expenses.push(expenseValue);
+        expenseInput.value = '';
+        updateExpenseList();
+        updateTotalExpense();
+      }
+    });
+
+    function updateExpenseList() {
+      expenseList.innerHTML = '';
+      for (const expense of expenses) {
+        const expenseItem = document.createElement('li');
+        expenseItem.textContent = `R$ ${expense.toFixed(2)}`;
+        expenseList.appendChild(expenseItem);
+      }
+    }
+
+    function updateTotalExpense() {
+      const total = expenses.reduce((sum, expense) => sum + expense, 0);
+      totalExpense.textContent = `R$ ${total.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>

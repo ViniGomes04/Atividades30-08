@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranking de Pontuações</title>
+</head>
+<body>
+  <h1>Ranking de Pontuações</h1>
+  <p>Insira as pontuações:</p>
+  <input type="number" id="scoreInput" placeholder="Insira a pontuação">
+  <button id="addScoreButton">Adicionar Pontuação</button>
+  <h2>Ranking:</h2>
+  <ol id="scoreList"></ol>
+
+  <script>
+    const scoreInput = document.getElementById('scoreInput');
+    const addScoreButton = document.getElementById('addScoreButton');
+    const scoreList = document.getElementById('scoreList');
+    const scores = [];
+
+    addScoreButton.addEventListener('click', () => {
+      const scoreValue = parseInt(scoreInput.value);
+      if (!isNaN(scoreValue) && scoreValue >= 0) {
+        scores.push(scoreValue);
+        scoreInput.value = '';
+        updateScoreList();
+      }
+    });
+
+    function updateScoreList() {
+      scores.sort((a, b) => b - a);
+      scoreList.innerHTML = '';
+      for (const score of scores) {
+        const scoreItem = document.createElement('li');
+        scoreItem.textContent = score;
+        scoreList.appendChild(scoreItem);
+      }
+    }
+  </script>
+</body>
+</html>

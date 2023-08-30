@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+</head>
+<body>
+    <style>
+        ul {
+          list-style-type: none;
+          padding: 0;
+        }
+        li {
+          margin: 5px 0;
+        }
+      </style>
+      <title>Lista de Tarefas do João</title>
+      </head>
+      <body>
+        <h1>Lista de Tarefas de João</h1>
+        <input type="text" id="taskInput" placeholder="Digite uma tarefa...">
+        <button id="addTaskButton">Adicionar Tarefa</button>
+        <ul id="taskList"></ul>
+        <button id="showTasksButton">Exibir Tarefas</button>
+      
+        <script>
+          const taskInput = document.getElementById('taskInput');
+          const addTaskButton = document.getElementById('addTaskButton');
+          const taskList = document.getElementById('taskList');
+          const showTasksButton = document.getElementById('showTasksButton');
+          const tasks = [];
+      
+          addTaskButton.addEventListener('click', () => {
+            const task = taskInput.value.trim();
+            if (task !== '') {
+              tasks.push(task);
+              taskInput.value = '';
+              updateTaskList();
+            }
+          });
+      
+          showTasksButton.addEventListener('click', () => {
+            alert(`Tarefas a realizar:\n${tasks.join('\n')}`);
+          });
+      
+          function updateTaskList() {
+            taskList.innerHTML = '';
+            for (const task of tasks) {
+              const taskItem = document.createElement('li');
+              taskItem.textContent = task;
+              taskList.appendChild(taskItem);
+            }
+          }
+        </script>
+      
+</body>
+</html>

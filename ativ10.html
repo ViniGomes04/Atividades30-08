@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playlist de Músicas</title>
+</head>
+<body>
+  <h1>Playlist de Músicas</h1>
+  <p>Insira o nome da música:</p>
+  <input type="text" id="songInput" placeholder="Nome da música">
+  <button id="addSongButton">Adicionar Música</button>
+  <h2>Lista de Músicas:</h2>
+  <ul id="songList"></ul>
+
+  <script>
+    const songInput = document.getElementById('songInput');
+    const addSongButton = document.getElementById('addSongButton');
+    const songList = document.getElementById('songList');
+    const playlist = [];
+
+    addSongButton.addEventListener('click', () => {
+      const song = songInput.value.trim();
+      if (song !== '') {
+        playlist.push(song);
+        songInput.value = '';
+        updateSongList();
+      }
+    });
+
+    function updateSongList() {
+      songList.innerHTML = '';
+      for (const song of playlist) {
+        const songItem = document.createElement('li');
+        songItem.textContent = song;
+        songList.appendChild(songItem);
+      }
+    }
+  </script>
+</body>
+</html>
